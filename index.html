@@ -10,7 +10,6 @@
             background: linear-gradient(to top, #87ceeb, #ffffff);
         }
 
-        /* Road */
         .road {
             position: absolute;
             bottom: 0;
@@ -19,21 +18,167 @@
             background: #333;
         }
 
-        /* Truck back */
+        /* Truck */
         .truck {
             position: absolute;
             bottom: 200px;
-            left: -300px;
-            width: 260px;
-            height: 160px;
-            background: #ff4d6d;
-            border-radius: 15px;
+            left: -350px;
+            width: 300px;
             animation: drive 4s forwards;
         }
 
-        /* Truck doors */
-        .door {
+        @keyframes drive {
+            to { left: 35%; }
+        }
+
+        /* Mailbox */
+        .mailbox {
             position: absolute;
-            width: 50%;
-            height: 100%;
-            background:
+            bottom: 200px;
+            right: 15%;
+            width: 200px;
+        }
+
+        /* Letter */
+        .letter {
+            position: absolute;
+            bottom: 260px;
+            left: 45%;
+            width: 160px;
+            opacity: 0;
+        }
+
+        .fly {
+            animation: flyToBox 3s forwards;
+        }
+
+        @keyframes flyToBox {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(350px, 0) scale(0.7);
+            }
+        }
+
+        .fromBox {
+            animation: outOfBox 2s forwards;
+        }
+
+        @keyframes outOfBox {
+            0% {
+                transform: translate(350px, 0) scale(0.7);
+            }
+            100% {
+                transform: translate(200px, -120px) scale(1.2);
+            }
+        }
+
+        .openLetter {
+            animation: openLetter 1s forwards;
+        }
+
+        @keyframes openLetter {
+            0% { transform: scale(1.2) rotateY(0deg); }
+            100% { transform: scale(1.6) rotateY(15deg); }
+        }
+
+        .text {
+            position: absolute;
+            top: 15%;
+            width: 100%;
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #e63946;
+            opacity: 0;
+            animation: popText 1s forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes popText {
+            to { opacity: 1; transform: scale(1.1); }
+        }
+
+        .openText {
+            position: absolute;
+            bottom: 25%;
+            width: 100%;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            opacity: 0;
+            animation: showOpen 1s forwards;
+            animation-delay: 9s;
+            cursor: pointer;
+        }
+
+        @keyframes showOpen {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="text">You got a parcel from your boy ❤️</div>
+
+    <!-- Truck image -->
+    <img class="truck" id="truck"
+    src="https://cdn-icons-png.flaticon.com/512/743/743922.png">
+
+    <!-- Mailbox image -->
+    <img class="mailbox"
+    src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png">
+
+    <!-- Letter image -->
+    <img class="letter" id="letter"
+    src="https://cdn-icons-png.flaticon.com/512/561/561127.png">
+
+    <div class="openText" onclick="openLetter()">
+        Click to open the letter
+    </div>
+
+    <div class="road"></div>
+
+    <script>
+        const letter = document.getElementById("letter");
+
+        // Letter flies from truck
+        setTimeout(() => {
+            letter.style.opacity = "1";
+            letter.classList.add("fly");
+        }, 4000);
+
+        // Letter comes out of mailbox
+        setTimeout(() => {
+            letter.classList.remove("fly");
+            letter.classList.add("fromBox");
+        }, 7000);
+
+        // Letter opens
+        setTimeout(() => {
+            letter.classList.add("openLetter");
+        }, 9000);
+
+        function openLetter() {
+            document.body.innerHTML = `
+                <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff9a9e,#fad0c4);font-family:Arial;">
+                    <div style="background:white;padding:60px;border-radius:25px;text-align:center;">
+                        <h1 style="font-size:48px;">Will you be my Valentine? ❤️</h1>
+                        <button style="padding:18px 40px;margin:15px;border:none;border-radius:15px;background:#ff4d6d;color:white;font-size:26px;">
+                        Yes
+                        </button>
+                        <button style="padding:18px 40px;margin:15px;border:none;border-radius:15px;background:#ccc;font-size:26px;">
+                        No
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
