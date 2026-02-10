@@ -10,126 +10,30 @@
             background: linear-gradient(to top, #87ceeb, #ffffff);
         }
 
+        /* Road */
         .road {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 150px;
+            height: 200px;
             background: #333;
         }
 
+        /* Truck back */
         .truck {
             position: absolute;
-            bottom: 120px;
-            left: -200px;
-            font-size: 80px;
-            animation: drive 5s linear forwards;
+            bottom: 200px;
+            left: -300px;
+            width: 260px;
+            height: 160px;
+            background: #ff4d6d;
+            border-radius: 15px;
+            animation: drive 4s forwards;
         }
 
-        @keyframes drive {
-            from { left: -200px; }
-            to { left: 40%; }
-        }
-
-        .text {
+        /* Truck doors */
+        .door {
             position: absolute;
-            top: 20%;
-            width: 100%;
-            text-align: center;
-            font-size: 32px;
-            color: #e63946;
-            opacity: 0;
-            transform: scale(0.8);
-            animation: popText 1s ease forwards;
-            animation-delay: 2s;
-        }
-
-        @keyframes popText {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .mailbox {
-            position: absolute;
-            bottom: 120px;
-            right: 20%;
-            font-size: 80px;
-        }
-
-        .letter {
-            position: absolute;
-            bottom: 160px;
-            left: 45%;
-            font-size: 50px;
-            opacity: 0;
-            animation: dropLetter 2s ease forwards;
-            animation-delay: 5s;
-        }
-
-        @keyframes dropLetter {
-            0% {
-                opacity: 1;
-                transform: translateY(-100px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .openText {
-            position: absolute;
-            bottom: 50%;
-            width: 100%;
-            text-align: center;
-            font-size: 26px;
-            color: #333;
-            opacity: 0;
-            animation: showOpen 1s ease forwards;
-            animation-delay: 7s;
-            cursor: pointer;
-        }
-
-        @keyframes showOpen {
-            to { opacity: 1; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="text">You got a parcel from your boy ❤️</div>
-
-    <div class="truck">🚚</div>
-    <div class="mailbox">📬</div>
-    <div class="letter">💌</div>
-
-    <div class="openText" onclick="openLetter()">
-        Click to open the letter
-    </div>
-
-    <div class="road"></div>
-
-    <script>
-        function openLetter() {
-            document.body.innerHTML = `
-                <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff9a9e,#fad0c4);font-family:Arial;">
-                    <div style="background:white;padding:40px;border-radius:20px;text-align:center;">
-                        <h1>Will you be my Valentine? ❤️</h1>
-                        <button onclick="alert('Yay! I love you ❤️')" 
-                        style="padding:12px 25px;margin:10px;border:none;border-radius:10px;background:#ff4d6d;color:white;font-size:18px;">
-                        Yes
-                        </button>
-                        <button onclick="alert('Try again 😜')" 
-                        style="padding:12px 25px;margin:10px;border:none;border-radius:10px;background:#ccc;font-size:18px;">
-                        No
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-    </script>
-
-</body>
-</html>
+            width: 50%;
+            height: 100%;
+            background:
