@@ -1,184 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Special Delivery</title>
+    <title>Special Letter</title>
     <style>
         body {
             margin: 0;
-            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             font-family: Arial, sans-serif;
-            background: linear-gradient(to top, #87ceeb, #ffffff);
+            overflow: hidden;
         }
 
-        .road {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 200px;
-            background: #333;
-        }
-
-        /* Truck */
-        .truck {
-            position: absolute;
-            bottom: 200px;
-            left: -350px;
-            width: 300px;
-            animation: drive 4s forwards;
-        }
-
-        @keyframes drive {
-            to { left: 35%; }
-        }
-
-        /* Mailbox */
-        .mailbox {
-            position: absolute;
-            bottom: 200px;
-            right: 15%;
-            width: 200px;
-        }
-
-        /* Letter */
-        .letter {
-            position: absolute;
-            bottom: 260px;
-            left: 45%;
-            width: 160px;
-            opacity: 0;
-        }
-
-        .fly {
-            animation: flyToBox 3s forwards;
-        }
-
-        @keyframes flyToBox {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(350px, 0) scale(0.7);
-            }
-        }
-
-        .fromBox {
-            animation: outOfBox 2s forwards;
-        }
-
-        @keyframes outOfBox {
-            0% {
-                transform: translate(350px, 0) scale(0.7);
-            }
-            100% {
-                transform: translate(200px, -120px) scale(1.2);
-            }
-        }
-
-        .openLetter {
-            animation: openLetter 1s forwards;
-        }
-
-        @keyframes openLetter {
-            0% { transform: scale(1.2) rotateY(0deg); }
-            100% { transform: scale(1.6) rotateY(15deg); }
-        }
-
-        .text {
-            position: absolute;
-            top: 15%;
-            width: 100%;
+        .container {
             text-align: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: #e63946;
-            opacity: 0;
-            animation: popText 1s forwards;
-            animation-delay: 1s;
         }
 
-        @keyframes popText {
-            to { opacity: 1; transform: scale(1.1); }
-        }
-
-        .openText {
-            position: absolute;
-            bottom: 25%;
-            width: 100%;
-            text-align: center;
-            font-size: 36px;
+        .clickText {
+            font-size: 32px;
             font-weight: bold;
-            color: #333;
-            opacity: 0;
-            animation: showOpen 1s forwards;
-            animation-delay: 9s;
+            color: #d62839;
+            margin-bottom: 20px;
             cursor: pointer;
         }
 
-        @keyframes showOpen {
-            to { opacity: 1; }
+        video {
+            width: 500px;
+            max-width: 90%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        .card {
+            display: none;
+            margin-top: 20px;
+            font-size: 34px;
+            font-weight: bold;
+            color: #e63946;
+            animation: pop 1s ease forwards;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="text">You got a parcel from your boy ❤️</div>
-
-    <!-- Truck image -->
-    <img class="truck" id="truck"
-    src="https://cdn-icons-png.flaticon.com/512/743/743922.png">
-
-    <!-- Mailbox image -->
-    <img class="mailbox"
-    src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png">
-
-    <!-- Letter image -->
-    <img class="letter" id="letter"
-    src="https://cdn-icons-png.flaticon.com/512/561/561127.png">
-
-    <div class="openText" onclick="openLetter()">
-        Click to open the letter
+<div class="container">
+    <div class="clickText" onclick="playAnimation()">
+        Click to open your letter ❤️
     </div>
 
-    <div class="road"></div>
+    <video id="letterVideo" src="stock-footage-envelope-opening-animation-mail-paper-reveal-invitation-letter-or-card-zooming-on-luxury-marble.webm"></video>
 
-    <script>
-        const letter = document.getElementById("letter");
+    <div class="card" id="cardMessage">
+        A special message just for you 💌
+    </div>
+</div>
 
-        // Letter flies from truck
-        setTimeout(() => {
-            letter.style.opacity = "1";
-            letter.classList.add("fly");
-        }, 4000);
+<script>
+function playAnimation() {
+    const video = document.getElementById("letterVideo");
+    const text = document.querySelector(".clickText");
 
-        // Letter comes out of mailbox
-        setTimeout(() => {
-            letter.classList.remove("fly");
-            letter.classList.add("fromBox");
-        }, 7000);
+    text.style.display = "none";
+    video.style.display = "block";
+    video.play();
 
-        // Letter opens
-        setTimeout(() => {
-            letter.classList.add("openLetter");
-        }, 9000);
-
-        function openLetter() {
-            document.body.innerHTML = `
-                <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff9a9e,#fad0c4);font-family:Arial;">
-                    <div style="background:white;padding:60px;border-radius:25px;text-align:center;">
-                        <h1 style="font-size:48px;">Will you be my Valentine? ❤️</h1>
-                        <button style="padding:18px 40px;margin:15px;border:none;border-radius:15px;background:#ff4d6d;color:white;font-size:26px;">
-                        Yes
-                        </button>
-                        <button style="padding:18px 40px;margin:15px;border:none;border-radius:15px;background:#ccc;font-size:26px;">
-                        No
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-    </script>
+    video.onended = function() {
+        document.getElementById("cardMessage").style.display = "block";
+    };
+}
+</script>
 
 </body>
 </html>
