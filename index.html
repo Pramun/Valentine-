@@ -1,82 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Special Letter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Proposal</title>
     <style>
         body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             font-family: Arial, sans-serif;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
         }
-
-        .container {
-            text-align: center;
-        }
-
-        .clickText {
-            font-size: 32px;
-            font-weight: bold;
-            color: #d62839;
+        #main-image {
+            width: 300px;
+            height: auto;
             margin-bottom: 20px;
+        }
+        #box {
+            background-color: white;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #box p {
+            font-size: 24px;
+            color: #ff1493;
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: transform 0.3s ease;
         }
-
-        video {
-            width: 500px;
-            max-width: 90%;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        #yes {
+            background-color: #ff69b4;
+            color: white;
+        }
+        #no {
+            background-color: #ccc;
+            color: black;
+        }
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             display: none;
+            z-index: 1000;
         }
-
-        .card {
+        #popup img {
+            width: 200px;
+            height: auto;
+        }
+        #popup button {
+            margin-top: 10px;
+        }
+        .hidden {
             display: none;
-            margin-top: 20px;
-            font-size: 34px;
-            font-weight: bold;
-            color: #e63946;
-            animation: pop 1s ease forwards;
-        }
-
-        @keyframes pop {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="clickText" onclick="playAnimation()">
-        Click to open your letter ❤️
+    <img id="main-image" src="https://via.placeholder.com/300x200/ff69b4/ffffff?text=Happy+Valentine%27s" alt="Valentine Image">
+    <div id="box">
+        <p>Will you be my Valentine today?</p>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+    <div id="popup" class="hidden">
+        <img id="popup-img" src="" alt="Popup Image">
+        <br>
+        <button onclick="closePopup()">Close</button>
     </div>
 
-    <video id="letterVideo" src="stock-footage-envelope-opening-animation-mail-paper-reveal-invitation-letter-or-card-zooming-on-luxury-marble.webm"></video>
+    <script>
+        let yesScale = 1;
+        let noScale = 1;
+        let popupIndex = 0;
+        const popupImages = [
+            "https://via.placeholder.com/200x150/ff1493/ffffff?text=Please+Say+Yes",
+            "https://via.placeholder.com/200x150/dc143c/ffffff?text=Think+Again",
+            "https://via.placeholder.com/200x150/c71585/ffffff?text=You+Know+You+Want+To",
+            "https://via.placeholder.com/200x150/db7093/ffffff?text=Last+Chance",
+            "https://via.placeholder.com/200x150/ff6347/ffffff?text=Okay+Fine"
+        ];
 
-    <div class="card" id="cardMessage">
-        A special message just for you 💌
-    </div>
-</div>
+        document.getElementById('no').addEventListener('click', function() {
+            yesScale += 0.2;
+            noScale = Math.max(0.1, noScale - 0.2);
+            document.getElementById('yes').style.transform = `scale(${yesScale})`;
+            document.getElementById('no').style.transform = `scale(${noScale})`;
+            
+            // Show popup with next image
+            document.getElementById('popup-img').src = popupImages[popupIndex % popupImages.length];
+            document.getElementById('popup').style.display = 'block';
+            popupIndex++;
+        });
 
-<script>
-function playAnimation() {
-    const video = document.getElementById("letterVideo");
-    const text = document.querySelector(".clickText");
+        document.getElementById('yes').addEventListener('click', function() {
+            alert("Yay! Happy Valentine's Day! ❤️");
+        });
 
-    text.style.display = "none";
-    video.style.display = "block";
-    video.play();
-
-    video.onended = function() {
-        document.getElementById("cardMessage").style.display = "block";
-    };
-}
-</script>
-
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
