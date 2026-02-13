@@ -110,11 +110,18 @@
             display: none;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            text-align: center;
         }
         #popup img {
             width: 200px;
             height: auto;
             border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        #popup p {
+            font-size: 18px;
+            color: #ff1493;
+            margin-bottom: 15px;
         }
         #popup button {
             margin-top: 10px;
@@ -137,9 +144,9 @@
 </head>
 <body>
     <div class="initial-screen" id="initial">
-        <img src="Snapchat-713328065.jpg/250x200/ff69b4/ffffff?text=Surprise!" alt="Surprise Image">
-        <h1>Hey there! 💕</h1>
-        <p>I've got something special for you. Ready to discover it?</p>
+        <img src="https://via.placeholder.com/250x200/ff69b4/ffffff?text=Surprise!" alt="Surprise Image">
+        <h1>Hey, I've got a secret message just for you! 💕</h1>
+        <p>Ready to open it and see what's inside?</p>
         <button onclick="revealSecret()">Click here to open secret message</button>
     </div>
     
@@ -154,7 +161,7 @@
     
     <div id="popup">
         <img id="popup-img" src="" alt="Popup Image">
-        <br>
+        <p id="popup-msg"></p>
         <button onclick="closePopup()">Close</button>
     </div>
 
@@ -162,12 +169,24 @@
         let yesScale = 1;
         let noScale = 1;
         let popupIndex = 0;
+        // Replace these with your actual raw GitHub URLs for the images
         const popupImages = [
-            "https://via.placeholder.com/200x150/ff1493/ffffff?text=Please+Say+Yes",
-            "https://via.placeholder.com/200x150/dc143c/ffffff?text=Think+Again",
-            "https://via.placeholder.com/200x150/c71585/ffffff?text=You+Know+You+Want+To",
-            "https://via.placeholder.com/200x150/db7093/ffffff?text=Last+Chance",
-            "https://via.placeholder.com/200x150/ff6347/ffffff?text=Okay+Fine"
+            "https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-713328065.jpg",
+            "https://raw.githubusercontent.com/your-username/your-repo/main/Snapchat-369788444.jpg",
+            "https://raw.githubusercontent.com/your-username/your-repo/main/Snapchat-1635002264.jpg",
+            "https://raw.githubusercontent.com/your-username/your-repo/main/Snapchat-1291926104.jpg",
+            "https://raw.githubusercontent.com/your-username/your-repo/main/Snapchat-98396593.jpg",
+            "https://raw.githubusercontent.com/your-username/your-repo/main/Snapchat-1577180170.jpg",
+            "https://raw.githubusercontent.com/your-username/your-repo/main/Snapchat-910030528.jpg"
+        ];
+        const popupMessages = [
+            "Hey, open your secret message! Something special awaits... 😊",
+            "Will you be my Valentine today?",
+            "No? Why? 🥺",
+            "Oi hauu 😔",
+            "Baby? Nataaak ha?",
+            "Please na baby, please be my Valentine 🥺",
+            "Yes, I knew it! 😏"
         ];
 
         function revealSecret() {
@@ -183,8 +202,9 @@
             document.getElementById('yes').style.transform = `scale(${yesScale})`;
             document.getElementById('no').style.transform = `scale(${noScale})`;
             
-            // Show popup with next image
+            // Show popup with next image and message
             document.getElementById('popup-img').src = popupImages[popupIndex % popupImages.length];
+            document.getElementById('popup-msg').textContent = popupMessages[popupIndex % popupMessages.length];
             document.getElementById('popup').style.display = 'block';
             popupIndex++;
         });
