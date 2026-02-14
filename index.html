@@ -55,6 +55,16 @@
             transition: 0.3s;
         }
 
+        #initial-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569); /* Pink gradient */
+            color: white;
+        }
+
+        #initial-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
         #yes {
             background: #ff4e8a;
             color: white;
@@ -64,7 +74,7 @@
             background: #ccc;
         }
 
-        button:hover {
+        #yes:hover, #no:hover {
             transform: scale(1.1);
         }
 
@@ -193,7 +203,7 @@
         <img src="https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-713328065.jpg">
         <h1>Hello baby ji ! apke liyee msg ayaaa he 👀🙆‍♂️</h1>
         <p>There is something special hai be ready... 😼</p>
-        <button onclick="revealSecret()">👉Here is your secret message👈</button>
+        <button id="initial-btn" onclick="revealSecret()">👉Here is your secret message👈</button>
     </div>
 
     <!-- Proposal Screen -->
@@ -244,7 +254,7 @@
             "No? Why baby? 🥺",
             "Oi hauu 😔",
             "Baby? Nataaak ha?",
-            "jaw line hererwaa yes vadee 🙉",
+            "jaw line hererwaa yes vandee 🙉",
             "kyaa mhe apkaa pookie nai hu kya ? 😔",
             "Take this phool from yours fool.. ab two manjaao meri maaa ",
             "Please na baby, please be my Valentine 🥺",
@@ -252,10 +262,9 @@
         ];
 
         // Your custom love message (edit this to write your own)
-        const loveMessage = `Happy Valentine’s Day, my love! I wish I could be right there with you, holding you close, feeling your heartbeat against mine, and seeing your beautiful smile light up the room. Even though we’re miles apart, not close to each other you studying so hard for our better future.  I l know you are missing home, and missing me, I feel you everywhere I go every little thought, every smile, every memory of you keeps me going and reminds me of just how lucky I am to have you in my life. Mero baby mero Fuchi, mine cupcake, my Momo, meroo mutu ko tukra, my Fyauri, my Hagwwi, my Muse Kalee—you are the most precious part of my world, and every nickname I have for you is a little piece of my heart that belongs only to you. I know being away from home and everything familiar is tough, and I know sometimes you feel lonely, but please remember that distance can never lessen my love for you. I think about the day you will come home, and my heart races just imagining holding you in my arms, telling you how much I adore you, and never wanting to let you go.
-You are the cutest, most beautiful soul I’ve ever known, and even from far away, you make my world brighter with just your thoughts, your laughter, and your little quirks. I miss your presence, the warmth of your hugs, the softness of your voice, and the way your eyes light up when you smile. The smell of the hair, I miss the way you make even the smallest moments feel magical, and I miss the comfort of knowing that no matter what, I have you by my side. But even though we are apart, I feel your love every day, wrapping around me, giving me strength, and reminding me why I fall in love with you more and more day by day My heart beats for you, my Cutie , mero Momo, mero cupcake, my mutu ko tukra, my Fyauri, my Hagwwi, my Muse Kalee. You are my joy, my comfort, my happiness, and my everything.
-Every day I think of you, I see you studying, working hard, chasing your dreams, and I feel so proud of the incredible person you are. I want you to know that even though you are missing home, missing us, and missing the life you love, you are loved so deeply, so endlessly, and so completely by me. Soon enough, my love, you will come home, and every moment we have waited, every longing we have felt, will melt away the second I see you. I will hold you, kiss you, and remind you in every possible way that you are my everything, my forever, my Valentine. Until that day comes, my love, carry my heart 
-I love you mero musee English dher vayoo holaaa tei ni happy Valentine's day mero sane musoo i miss you so much i miss you darling. Iam so proud of you. I love you mummmmmmha ❤️`;
+        const loveMessage = `My love, from the moment I saw you, my heart knew it was yours. You are my everything, my sunshine on cloudy days, and the reason I smile every morning. Happy Valentine's Day, my forever Valentine! I love you more than words can say. ❤️
+
+        You make my world brighter, my days happier, and my heart fuller. Every moment with you is a treasure. I can't wait to spend many more Valentine's Days with you. 💕`;
 
         function revealSecret() {
             document.getElementById("initial").style.display = "none";
