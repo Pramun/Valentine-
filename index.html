@@ -184,16 +184,18 @@ function revealSecret() {
     document.getElementById("proposal").style.display = "block";
 }
 
+const proposalImage = document.querySelector("#proposal img");
+const proposalText = document.querySelector("#proposal h2");
+
 document.getElementById("no").addEventListener("click", function() {
 
-    // Grow YES button slightly
+    // Grow YES button
     yesScale += 0.15;
     document.getElementById("yes").style.transform = `scale(${yesScale})`;
 
-    // Show popup
-    document.getElementById("popup-img").src = popupImages[popupIndex % popupImages.length];
-    document.getElementById("popup-msg").innerText = popupMessages[popupIndex % popupMessages.length];
-    document.getElementById("popup-overlay").style.display = "flex";
+    // Change image and text on full screen
+    proposalImage.src = popupImages[popupIndex % popupImages.length];
+    proposalText.innerText = popupMessages[popupIndex % popupMessages.length];
 
     popupIndex++;
 });
@@ -203,10 +205,6 @@ document.getElementById("yes").addEventListener("click", function() {
     document.getElementById("final").style.display = "block";
     launchHearts();
 });
-
-function closePopup() {
-    document.getElementById("popup-overlay").style.display = "none";
-}
 
 /* Heart explosion */
 function launchHearts() {
@@ -222,6 +220,6 @@ function launchHearts() {
     }
 }
 </script>
-
+    
 </body>
 </html>
