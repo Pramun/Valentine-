@@ -1,221 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Surprise</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef);
-            margin: 0;
-            overflow: hidden;
-            transition: background 0.5s ease;
-        }
-        .initial-screen {
-            text-align: center;
-            animation: fadeIn 1s ease-in;
-        }
-        .initial-screen img {
-            width: 250px;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        }
-        .initial-screen h1 {
-            color: #d63384;
-            font-size: 28px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        .initial-screen p {
-            color: #6c757d;
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        .initial-screen button {
-            background: linear-gradient(45deg, #ff6b9d, #c44569);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .initial-screen button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-        .proposal-screen {
-            display: none;
-            text-align: center;
-            animation: slideIn 0.5s ease-out;
-        }
-        #main-image {
-            width: 300px;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        }
-        #box {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 2px solid #ff69b4;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            position: relative; /* For absolute positioning of buttons */
-        }
-        #box p {
-            font-size: 24px;
-            color: #ff1493;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        button {
-            font-size: 18px;
-            padding: 12px 24px;
-            margin: 0 10px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-            position: absolute; /* Allow buttons to move */
-        }
-        #yes {
-            background: linear-gradient(45deg, #ff6b9d, #c44569);
-            color: white;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        #no {
-            background: linear-gradient(45deg, #ccc, #999);
-            color: black;
-        }
-        #popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 2px solid #ff69b4;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            display: none;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-        #popup img {
-            width: 200px;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        #popup p {
-            font-size: 18px;
-            color: #ff1493;
-            margin-bottom: 15px;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Surprise</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+}
+
+/* Floating hearts background */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp {
+    from { transform: translateY(0); opacity:1; }
+    to { transform: translateY(-100vh); opacity:0; }
+}
+
+/* Screens */
+.screen {
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+
+#proposal, #final {
+    display: none;
+}
+
+img {
+    width: 260px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#yes {
+    background: #ff4e8a;
+    color: white;
+}
+
+#no {
+    background: #ccc;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* POPUP */
+#popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#popup-box {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    animation: popupScale 0.4s ease;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+#popup-box img {
+    width: 220px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+#popup-box p {
+    font-size: 18px;
+    color: #ff0066;
+    margin-bottom: 15px;
+}
+
+@keyframes popupScale {
+    from { transform: scale(0.6); opacity:0; }
+    to { transform: scale(1); opacity:1; }
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+#final h1 {
+    font-size: 38px;
+    color: #ff0066;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+</style>
 </head>
+
 <body>
-    <div class="initial-screen" id="initial">
-        <img src="https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-713328065.jpg" alt="Surprise Image">
-        <h1>Hello baby ji ! apke liyee msg ayaaa he 👀🙆‍♂️</h1> 
-        <p>There is something special hai be ready... 😼</p>
-        <button onclick="revealSecret()">👉Here is your's secret message👈</button> 
-    </div>
-    
-    <div class="proposal-screen" id="proposal">
-        <img id="main-image" src="https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-369788444.jpg" alt="Valentine Image">
-        <div id="box">
-            <p>Will you be my Valentine today?</p>
-            <button id="yes">Yes</button>
-            <button id="no">No</button>
-        </div>
-    </div>
-    
-    <div id="popup">
-        <img id="popup-img" src="" alt="Popup Image">
+
+<!-- Floating hearts container -->
+<div id="hearts-container"></div>
+
+<!-- Initial Screen -->
+<div class="screen" id="initial">
+    <img src="https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-713328065.jpg">
+    <h1>Hello baby ji ! apke liyee msg ayaaa he 👀🙆‍♂️</h1>
+    <p>There is something special hai be ready... 😼</p>
+    <button onclick="revealSecret()">👉Here is your secret message👈</button>
+</div>
+
+<!-- Proposal Screen -->
+<div class="screen" id="proposal">
+    <img src="https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-369788444.jpg">
+    <h2 style="color:#ff0066;">Will you be my Valentine today?</h2>
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 😢</button>
+</div>
+
+<!-- Final Screen -->
+<div class="screen" id="final">
+    <h1>Yayyyyy! ❤️</h1>
+    <p>You just made me the happiest person alive 😭💖</p>
+</div>
+
+<!-- Popup -->
+<div id="popup-overlay">
+    <div id="popup-box">
+        <img id="popup-img" src="">
         <p id="popup-msg"></p>
+        <button onclick="closePopup()">Okay 🥺</button>
     </div>
+</div>
 
-    <script>
-        let yesScale = 1;
-        let noScale = 1;
-        let popupIndex = 0;
-        // Replace these with your actual raw GitHub URLs for the images
-        const popupImages = [
-            "https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-1635002264.jpg",
-            "https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-1291926104.jpg",
-            "https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-98396593.jpg",
-            "https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-1577180170.jpg",
-            "https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-910030528.jpg"
-        ];
-        const popupMessages = [
-            "No? Why? 🥺",
-            "Oi hauu 😔",
-            "Baby? Nataaak ha?",
-            "Please na baby, please be my Valentine 🥺",
-            "Yes, I knew it! 😏"
-        ];
+<script>
+let yesScale = 1;
+let popupIndex = 0;
 
-        function revealSecret() {
-            document.getElementById('initial').style.display = 'none';
-            document.getElementById('proposal').style.display = 'flex';
-            document.getElementById('proposal').style.flexDirection = 'column';
-            document.getElementById('proposal').style.alignItems = 'center';
-        }
+const popupImages = [
+"https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-1635002264.jpg",
+"https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-1291926104.jpg",
+"https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-98396593.jpg",
+"https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-1577180170.jpg",
+"https://raw.githubusercontent.com/Pramun/Valentine-/main/Snapchat-910030528.jpg"
+];
 
-        document.getElementById('no').addEventListener('click', function() {
-            yesScale += 0.2;
-            noScale = Math.max(0.1, noScale - 0.2);
-            document.getElementById('yes').style.transform = `scale(${yesScale})`;
-            document.getElementById('no').style.transform = `scale(${noScale})`;
-            
-            // Randomly move the No button
-            const noButton = document.getElementById('no');
-            const maxX = window.innerWidth - noButton.offsetWidth;
-            const maxY = window.innerHeight - noButton.offsetHeight;
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-            noButton.style.left = `${randomX}px`;
-            noButton.style.top = `${randomY}px`;
-            
-            // Show popup with next image and message
-            document.getElementById('popup-img').src = popupImages[popupIndex % popupImages.length];
-            document.getElementById('popup-msg').textContent = popupMessages[popupIndex % popupMessages.length];
-            document.getElementById('popup').style.display = 'block';
-            popupIndex++;
-            
-            // Auto-close popup after 3 seconds
-            setTimeout(function() {
-                document.getElementById('popup').style.display = 'none';
-            }, 3000);
-        });
+const popupMessages = [
+"No? Why baby? 🥺",
+"Oi hauu 😔",
+"Baby? Nataaak ha?",
+"Please na baby, please be my Valentine 🥺",
+"I know you love me 😏"
+];
 
-        document.getElementById('yes').addEventListener('click', function() {
-            alert("Yay! Happy Valentine's Day! ❤️");
-        });
-    </script>
+function revealSecret() {
+    document.getElementById("initial").style.display = "none";
+    document.getElementById("proposal").style.display = "block";
+}
+
+document.getElementById("no").addEventListener("click", function() {
+
+    // Grow YES button slightly
+    yesScale += 0.15;
+    document.getElementById("yes").style.transform = `scale(${yesScale})`;
+
+    // Show popup
+    document.getElementById("popup-img").src = popupImages[popupIndex % popupImages.length];
+    document.getElementById("popup-msg").innerText = popupMessages[popupIndex % popupMessages.length];
+    document.getElementById("popup-overlay").style.display = "flex";
+
+    popupIndex++;
+});
+
+document.getElementById("yes").addEventListener("click", function() {
+    document.getElementById("proposal").style.display = "none";
+    document.getElementById("final").style.display = "block";
+    launchHearts();
+});
+
+function closePopup() {
+    document.getElementById("popup-overlay").style.display = "none";
+}
+
+/* Heart explosion */
+function launchHearts() {
+    for (let i = 0; i < 60; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+    }
+}
+</script>
+
 </body>
 </html>
