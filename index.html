@@ -102,7 +102,10 @@
             color: black;
         }
         #popup {
-            position: absolute; /* Changed from fixed to absolute for random movement */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.95);
             border: 2px solid #ff69b4;
             border-radius: 15px;
@@ -115,9 +118,8 @@
         }
         #popup img {
             width: 200px;
-            height: 200px; /* Set height equal to width for perfect circle */
-            border-radius: 50%; /* Makes the image circular */
-            object-fit: cover; /* Ensures the image fits nicely in the circle */
+            height: auto;
+            border-radius: 10px;
             margin-bottom: 10px;
         }
         #popup p {
@@ -199,25 +201,15 @@
             noButton.style.left = `${randomX}px`;
             noButton.style.top = `${randomY}px`;
             
-            // Show popup with next image and message, and randomly position it
-            const popup = document.getElementById('popup');
+            // Show popup with next image and message
             document.getElementById('popup-img').src = popupImages[popupIndex % popupImages.length];
             document.getElementById('popup-msg').textContent = popupMessages[popupIndex % popupMessages.length];
-            popup.style.display = 'block';
-            
-            // Randomly position the popup
-            const popupMaxX = window.innerWidth - popup.offsetWidth;
-            const popupMaxY = window.innerHeight - popup.offsetHeight;
-            const popupRandomX = Math.random() * popupMaxX;
-            const popupRandomY = Math.random() * popupMaxY;
-            popup.style.left = `${popupRandomX}px`;
-            popup.style.top = `${popupRandomY}px`;
-            
+            document.getElementById('popup').style.display = 'block';
             popupIndex++;
             
             // Auto-close popup after 3 seconds
             setTimeout(function() {
-                popup.style.display = 'none';
+                document.getElementById('popup').style.display = 'none';
             }, 3000);
         });
 
