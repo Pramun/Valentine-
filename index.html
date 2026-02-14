@@ -1,4 +1,4 @@
-u<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -73,6 +73,7 @@ u<!DOCTYPE html>
             padding: 30px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
+            position: relative; /* For absolute positioning of buttons */
         }
         #box p {
             font-size: 24px;
@@ -88,20 +89,20 @@ u<!DOCTYPE html>
             border-radius: 25px;
             cursor: pointer;
             transition: transform 0.3s ease, background 0.3s ease;
+            position: absolute; /* Allow buttons to move */
         }
         #yes {
             background: linear-gradient(45deg, #ff6b9d, #c44569);
             color: white;
+            left: 50%;
+            transform: translateX(-50%);
         }
         #no {
             background: linear-gradient(45deg, #ccc, #999);
             color: black;
         }
         #popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: absolute; /* Changed from fixed to absolute for random movement */
             background-color: rgba(255, 255, 255, 0.95);
             border: 2px solid #ff69b4;
             border-radius: 15px;
@@ -114,23 +115,15 @@ u<!DOCTYPE html>
         }
         #popup img {
             width: 200px;
-            height: auto;
-            border-radius: 10px;
+            height: 200px; /* Set height equal to width for perfect circle */
+            border-radius: 50%; /* Makes the image circular */
+            object-fit: cover; /* Ensures the image fits nicely in the circle */
             margin-bottom: 10px;
         }
         #popup p {
             font-size: 18px;
             color: #ff1493;
             margin-bottom: 15px;
-        }
-        #popup button {
-            margin-top: 10px;
-            background: linear-gradient(45deg, #ff6b9d, #c44569);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -162,7 +155,6 @@ u<!DOCTYPE html>
     <div id="popup">
         <img id="popup-img" src="" alt="Popup Image">
         <p id="popup-msg"></p>
-        <button onclick="closePopup()">Close</button>
     </div>
 
     <script>
@@ -198,20 +190,40 @@ u<!DOCTYPE html>
             document.getElementById('yes').style.transform = `scale(${yesScale})`;
             document.getElementById('no').style.transform = `scale(${noScale})`;
             
-            // Show popup with next image and message
+            // Randomly move the No button
+            const noButton = document.getElementById('no');
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+            
+            // Show popup with next image and message, and randomly position it
+            const popup = document.getElementById('popup');
             document.getElementById('popup-img').src = popupImages[popupIndex % popupImages.length];
             document.getElementById('popup-msg').textContent = popupMessages[popupIndex % popupMessages.length];
-            document.getElementById('popup').style.display = 'block';
+            popup.style.display = 'block';
+            
+            // Randomly position the popup
+            const popupMaxX = window.innerWidth - popup.offsetWidth;
+            const popupMaxY = window.innerHeight - popup.offsetHeight;
+            const popupRandomX = Math.random() * popupMaxX;
+            const popupRandomY = Math.random() * popupMaxY;
+            popup.style.left = `${popupRandomX}px`;
+            popup.style.top = `${popupRandomY}px`;
+            
             popupIndex++;
+            
+            // Auto-close popup after 3 seconds
+            setTimeout(function() {
+                popup.style.display = 'none';
+            }, 3000);
         });
 
         document.getElementById('yes').addEventListener('click', function() {
             alert("Yay! Happy Valentine's Day! ❤️");
         });
-
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
     </script>
 </body>
 </html>
